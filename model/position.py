@@ -18,4 +18,4 @@ class Position :
 		self.y = y
 
 	def print_attribute(self) :
-		print ("(",self.get_x(),",",self.get_y(),")",end='')
+		print ("(",self.get_x(),",",self.get_y(),")")
