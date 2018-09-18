@@ -1,85 +1,81 @@
-from Position import *
+from position import Position
 
 
 class Rook:
+    
+    #Constanta
+    MAXSIZE = 8
+    MINSIZE = 0
 
     def __init__(self):
         # nothing
         print("creating Rook")
 
-    def possibleConflictUp(self, pos):
+    def possible_move_up(self, pos):
         li = []
-        i = 1
-        po = Position()
+        i = self.MINSIZE
+        
         currentY = getattr(pos,'y') + 1
-        print("currentPos : "+pos.getCordinate()+" goto up")
-        for Y in range(currentY,9) :
-            newPos1 = Position(getattr(pos,'x'),Y)
-            li.append(newPos1)
-        for p in li :
-            p.printAtribute()
+        for Y in range(currentY,self.MAXSIZE) :
+            newPos = Position(getattr(pos,'x'),Y)
+            li.append(newPos)
         return li
+
     
-    def possibleConflictRight(self,pos):
+    def possible_move_right(self,pos):
         li = []
-        i = 1
-        po = Position()
+        i = self.MINSIZE
+
         currentX = getattr(pos,'x') + 1
-        print("currentPos : "+pos.getCordinate()+" goto right")
-        for X in range(currentX,9) :
-            newPos1 = Position(X,getattr(pos,'y'))
-            li.append(newPos1)
-        for p in li :
-            p.printAtribute()
+        for X in range(currentX,self.MAXSIZE) :
+            newPos = Position(X,getattr(pos,'y'))
+            li.append(newPos)
+
         return li    
 
-    def possibleConflictDown(self, pos):
+    def possible_move_down(self, pos):
         li = []
-        i = 1
-        po = Position()
-        currentY = getattr(pos,'y') + 1
-        print("currentPos : "+pos.getCordinate()+ " goto down")
-        for Y in range(currentY,0,-1) :
-            newPos1 = Position(getattr(pos,'x'),Y)
-            li.append(newPos1)
-        for p in li :
-            p.printAtribute()
+        i = self.MINSIZE
+
+        currentY = getattr(pos,'y') - 1
+        for Y in range(currentY,self.MINSIZE-1,-1) :
+            newPos = Position(getattr(pos,'x'),Y)
+            li.append(newPos)
+
         return li
 
 
-    def possibleConflictLeft(self,pos):
+    def possible_move_left(self,pos):
         li = []
-        i = 1
-        po = Position()
-        currentX = getattr(pos,'x') + 1
-        print("currentPos : "+pos.getCordinate()+" goto left")
-        for X in range(currentX,0,-1) :
-            newPos1 = Position(X,getattr(pos,'y'))
-            li.append(newPos1)
-        for p in li :
-            p.printAtribute()
+        i = self.MINSIZE
+
+        currentX = getattr(pos,'x') - 1
+        for X in range(currentX,self.MINSIZE-1,-1) :
+            newPos = Position(X,getattr(pos,'y'))
+            li.append(newPos)
+
         return li
 
-    # def possibleConflict(self,pos):
-    #     liOfAllPossible = []
-    #     liPossible = []
-    #     liPossible = possibleConflictUp(pos)
-    #     liOfAllPossible.append(liPossible)
-    #     print()
-    #     liOfAllPossible.append(possibleConlictDown(pos))
-    #     print()
-    #     liOfAllPossible.append(possibleConlictRight(pos))
-    #     print()
-    #     liOfAllPossible.append(possibleConlictLeft(pos))
+    def show_possible_move(self,pos):
+        liOfAllPossible = []
 
-    #     return liOfAllPossible
+        liOfAllPossible.append(self.possible_move_up(pos))
+        liOfAllPossible.append(self.possible_move_down(pos))
+        liOfAllPossible.append(self.possible_move_right(pos))
+        liOfAllPossible.append(self.possible_move_left(pos))
 
-def main() :
-    rook = Rook()
-    pos = Position(4,5)
+        return liOfAllPossible
 
-    rook.possibleConflict(pos)
-    
+# def main() :
+#     rook = Rook()
+#     pos = Position(4,5)
 
-if __name__ == '__main__' :
-    main()
+#     li = rook.possibleConflict(pos)
+
+#     for x in li :
+#         for y in x :
+#             y.print_attribute()
+#         print()    
+
+# if __name__ == '__main__' :
+#     main()
