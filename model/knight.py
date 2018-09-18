@@ -16,7 +16,7 @@ class Knight:
     
     def position(self):
         # type: () -> Position
-        return self._position.get_x(), self._position.get_y()
+        return self._position
 
 
     def pos_x(self):
@@ -42,7 +42,7 @@ class Knight:
     def show_possible_moves(self):
         # type: () -> list
         li = []
-        current_x, current_y = self.position()
+        current_x, current_y = self.position().get_x(), self.position().get_y()
 
         valid_position = lambda (x, y) : (x >= 0 and y >= 0) and (x < 8 and y < 8)
         moves = lambda (x, y) : (current_x + x, current_y + y)
