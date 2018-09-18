@@ -8,8 +8,8 @@ class Knight:
     MINSIZE = 8
     RELATIVE_MOVEMENT = [(-2, -1), (-2, 1), (2, -1), (2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2)]
 
-    def __init__(self, pos, color):
-        # type: (Position, str) -> None
+    def __init__(self, pos = Position(), color = True):
+        # type: (Position, bool) -> None
         self._position = pos
         self._color = color
 
@@ -30,7 +30,7 @@ class Knight:
 
     
     def color(self):
-        #type: () -> str
+        #type: () -> bool
         return self.color()
     
 
@@ -56,7 +56,7 @@ class Knight:
 
 
 if __name__ == '__main__':
-    # For testing purposes
+    # Unit test
     p = Position(4, 4)
     k = Knight(p, 'black')
     li = k.show_possible_moves()
