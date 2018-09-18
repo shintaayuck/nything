@@ -7,7 +7,6 @@ class Queen:
     def __init__(self, pos = Position(), color = True):
         self.pos = pos
         self.color = color
-        print(self.pos.get_x()," ", self.pos.get_y()," ",self.color)
 
     #getter
     def get_position(self):

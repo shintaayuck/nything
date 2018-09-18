@@ -7,9 +7,22 @@ class Rook:
     MAXSIZE = 8
     MINSIZE = 0
 
-    def __init__(self):
-        # nothing
-        print("creating Rook")
+    def __init__(self, pos = Position(), color = True):
+        self.pos = pos
+        self.color = color
+    #getter
+    def get_position(self):
+        return self.pos
+
+    def get_color(self):
+        return self.color
+
+    #setter
+    def set_position(self,pos):
+        self.pos = pos
+
+    def set_color(self, color):
+        self.color = color
 
     def possible_move_up(self, pos):
         li = []
@@ -56,8 +69,9 @@ class Rook:
 
         return li
 
-    def show_possible_move(self,pos):
+    def show_possible_moves(self,position = None):
         liOfAllPossible = []
+        pos = position if position is not None else self.pos
 
         liOfAllPossible.append(self.possible_move_up(pos))
         liOfAllPossible.append(self.possible_move_down(pos))

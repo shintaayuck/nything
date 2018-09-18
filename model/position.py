@@ -16,6 +16,3 @@ class Position :
 
 	def set_y(self, y) :
 		self.y = y
-
-	def print_attribute(self) :
-		print ("(",self.get_x(),",",self.get_y(),")",end='')
