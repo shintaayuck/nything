@@ -44,7 +44,7 @@ class Knight:
         li = []
         current_x, current_y = self.position()
 
-        valid_position = lambda (x, y) : x >= 0 and y >= 0
+        valid_position = lambda (x, y) : (x >= 0 and y >= 0) and (x < 8 and y < 8)
         moves = lambda (x, y) : (current_x + x, current_y + y)
         temp_li = filter(valid_position, map(moves, self.RELATIVE_MOVEMENT))
 
@@ -57,8 +57,13 @@ class Knight:
 
 if __name__ == '__main__':
     # Unit test
-    p = Position(4, 4)
-    k = Knight(p, 'black')
-    li = k.show_possible_moves()
-    for pos in li:
-        print pos.get_x(),pos.get_y()
+    poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
+
+    for i, pos in enumerate(poses):
+        print 'Knight {} - Pos: ({},{})'.format(i, pos.get_x(), pos.get_y())
+        
+        k = Knight(pos, True)
+        
+        moves = k.show_possible_moves()
+        for move in moves:
+            print '({},{})'.format(move.get_x(), move.get_y())
