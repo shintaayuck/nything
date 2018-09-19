@@ -96,6 +96,13 @@ class Bishop:
         result.append(self.possible_move_down_right(pos))
 
         return result
+    
+    def draw(self):
+        # this method prints Bishop symbol 'B'
+        # input : None
+        # output: 'B'
+        
+        print('B', end='')
 
 # bishop = Bishop()
 # pos = Position(4,4)
