@@ -38,15 +38,17 @@ class Knight:
         self.__color = color
 
 
-    def show_possible_moves(self):
+    def show_possible_moves(self, position = None):
         # type: () -> list
         li = []
-        current_x, current_y = self.position.x, self.position.y
+
+        my_position = position if position is not None else self.position
+        my_x, my_y = my_position.x, my_position.y
 
         # as tuple unpacking is gone in Python 3, must find a workaround for lambda function
         valid_position = lambda point : (point[0] >= 0 and point[1] >= 0)\
                                         and (point[0] < 8 and point[0] < 8)
-        moves = lambda point : (current_x + point[0], current_y + point[1])
+        moves = lambda point : (my_x + point[0], my_y + point[1])
         temp_li = filter(valid_position, map(moves, self.RELATIVE_MOVEMENT))
 
         for pos in temp_li:
