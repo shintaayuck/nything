@@ -84,12 +84,15 @@ class Board :
 		return result
 
 	#count all pieces' conflict
-	def count_all_conflict(self) :
+	def count_all_conflict_white(self, white_pieces) :
 		result = 0
-		for piece in self.white_pieces :
+		for piece in white_pieces :
 			possible_moves = piece.show_possible_moves(piece.get_position())
 			result += self.count_conflict(possible_moves)
-		for piece in self.black_pieces :
+		return result
+	
+	def count_all_conflict_black(self,black_pieces):
+		for piece in black_pieces :
 			possible_moves = piece.show_possible_moves(piece.get_position())
 			result += self.count_conflict(possible_moves)
 		return result
