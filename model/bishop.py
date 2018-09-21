@@ -9,22 +9,26 @@ class Bishop:
 
     # constructor
     def __init__(self, pos=Position(), color=True):
-        self.pos = pos
-        self.color = color
+        self.__position = pos
+        self.__color = color
 
     # getter attributes
-    def get_position(self):
-        return self.pos
+    @property
+    def position(self):
+        return self.__position
 
-    def get_color(self):
-        return self.color
+    @property
+    def color(self):
+        return self.__color
 
     # setter attributes
+    @position.setter
     def set_position(self, pos):
-        self.pos = pos
+        self.__position = pos
 
+    @color.setter
     def set_color(self, color):
-        self.color = color
+        self.__color = color
 
     # methods
     def possible_move_up_left(self, pos):
