@@ -19,32 +19,11 @@ class Board :
 		self.__matrix = [[None for i in range(self.__size)] for j in range(self.__size)]
 		self.__ally_conflict = 0
 		self.__enemy_conflict = 0
-<<<<<<< HEAD
-		for piece in white_pieces :
-			occupied = True
-			while occupied :
-				x = random.randint(0,self.__size-1)
-				y = random.randint(0,self.__size-1)
-				if(self.__matrix[x][y] == None) :
-					occupied = False
-			self.__matrix[x][y] = piece
-			piece.position = Position(x,y)
-		for piece in black_pieces :
-			occupied = True
-			while occupied :
-				x = random.randint(0,self.__size-1)
-				y = random.randint(0,self.__size-1)
-				if(self.__matrix[x][y] == None) :
-					occupied = False
-			self.__matrix[x][y] = piece
-			piece.position = Position(x,y)
-=======
 		all_pieces = self.combine_pieces()
 		for piece in all_pieces :
 			position = self.random_position()
 			self.__matrix[position.x][position.y] = piece
 			piece.position = position
->>>>>>> 6b8e4e67a16a73427bac48caa3f0901944a11e97
 
 	#getters and setters
 	@property
