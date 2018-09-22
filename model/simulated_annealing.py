@@ -55,9 +55,6 @@ def eval(board):
     board.count_all_conflict()
     return board.ally_conflict
 
-
-
-
 def main():
     li = []
     li1 = []

@@ -199,20 +199,3 @@ class Board :
 						else :
 							print('k ', end='')
 			print('')
-
-	def move_all_piece(self):
-
-		self.reset_board_matrix()
-
-		for piece in self.white_pieces :
-			temp_pos = Position(piece.position.x,piece.position.y)
-			temp_pos.print_attribute()
-			self.matrix[temp_pos.x][temp_pos.y] = piece
-		
-	def reset_board_matrix(self):
-		for i in range(0,self.size):
-			for j in range(0,self.size):
-				self.matrix[i][j] = None
-
-
-		
