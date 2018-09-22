@@ -74,6 +74,24 @@ class Board :
 	def enemy_conflict(self, enemy_conflict) :
 		self.__enemy_conflict = enemy_conflict
 
+	def __lt__(self, other):
+		return True
+
+	def ___le__(self, other):
+		return True
+
+	def __eq__(self, other):
+		return True
+
+	def __ne__(self, other):
+		return True
+
+	def __gt__(self, other):
+		return True
+
+	def __ge__(self, other):
+		return True
+
 	#method functions
 	#delete a piece from specific position
 	def delete_piece(self, position) :
