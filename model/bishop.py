@@ -1,5 +1,6 @@
 from position import Position
 
+
 class Bishop:
 
     # constants
@@ -7,29 +8,33 @@ class Bishop:
     MINSIZE = 0
 
     # constructor
-    def __init__(self, pos = Position(), color = True):
-        self.pos = pos
-        self.color = color
+    def __init__(self, pos=Position(), color=True):
+        self.__position = pos
+        self.__color = color
 
     # getter attributes
-    def get_position(self):
-        return self.pos
+    @property
+    def position(self):
+        return self.__position
 
-    def get_color(self):
-        return self.color
+    @property
+    def color(self):
+        return self.__color
 
     # setter attributes
+    @position.setter
     def set_position(self, pos):
-        self.pos = pos
+        self.__position = pos
 
+    @color.setter
     def set_color(self, color):
-        self.color = color
+        self.__color = color
 
     # methods
     def possible_move_up_left(self, pos):
         # this method calculates possible move to up left side from bishop
         # input : pos [Position]
-        # output: result [list of Position] 
+        # output: result [list of Position]
         result = []
         x = pos.get_x()
         y = pos.get_y()
@@ -82,11 +87,12 @@ class Bishop:
             y = y - 1
         return result
 
-    def show_possible_moves(self, position = None):
-        # this method returns a list containing all possible moves that can be done by this object
+    def show_possible_moves(self, position=None):
+        # this method returns a list containing all possible moves that
+        # can be done by this object
         # input : position [Position]
         # output: result [list of Position]
-        
+
         result = []
         pos = position if position is not None else self.pos
 
@@ -96,6 +102,12 @@ class Bishop:
         result.append(self.possible_move_down_right(pos))
 
         return result
+
+    def draw(self):
+        # this method prints Bishop symbol 'B'
+        # input : None
+        # output: 'B'
+        print('B', end='')
 
 # bishop = Bishop()
 # pos = Position(4,4)

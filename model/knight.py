@@ -10,42 +10,45 @@ class Knight:
 
     def __init__(self, pos = Position(), color = True):
         # type: (Position, bool) -> None
-        self._position = pos
-        self._color = color
+        self.__position = pos
+        self.__color = color
 
-    
+
+    @property
     def position(self):
         # type: () -> Position
-        return self._position
-
-
-    def pos_x(self):
-        # type: () -> int
-        return self._position.get_x()
-
+        return self.__position
     
-    def pos_y(self):
-        # type: () -> int
-        return self._position.get_y()
 
-    
+    @position.setter
+    def position(self, pos):
+        #type (Position) -> None
+        self.__position = pos
+
+
+    @property    
     def color(self):
         #type: () -> bool
-        return self.color()
-    
+        return self.__color()
 
-    def set_position(self, pos):
-        # type: Position -> None
-        self._position = pos
 
-    
-    def show_possible_moves(self):
+    @color.setter
+    def color(self, color):
+        #type (bool) -> None
+        self.__color = color
+
+
+    def show_possible_moves(self, position = None):
         # type: () -> list
         li = []
-        current_x, current_y = self.position().get_x(), self.position().get_y()
 
-        valid_position = lambda (x, y) : (x >= 0 and y >= 0) and (x < 8 and y < 8)
-        moves = lambda (x, y) : (current_x + x, current_y + y)
+        my_position = position if position is not None else self.position
+        my_x, my_y = my_position.x, my_position.y
+
+        # as tuple unpacking is gone in Python 3, must find a workaround for lambda function
+        valid_position = lambda point : (point[0] >= 0 and point[1] >= 0)\
+                                        and (point[0] < 8 and point[0] < 8)
+        moves = lambda point : (my_x + point[0], my_y + point[1])
         temp_li = filter(valid_position, map(moves, self.RELATIVE_MOVEMENT))
 
         for pos in temp_li:
@@ -60,10 +63,10 @@ if __name__ == '__main__':
     poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
 
     for i, pos in enumerate(poses):
-        print 'Knight {} - Pos: ({},{})'.format(i, pos.get_x(), pos.get_y())
+        print('Knight {} - Pos: ({},{})'.format(i, pos.x, pos.y))
         
         k = Knight(pos, True)
         
         moves = k.show_possible_moves()
         for move in moves:
-            print '({},{})'.format(move.get_x(), move.get_y())
+            print('({},{})'.format(move.x, move.y))

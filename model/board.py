@@ -158,6 +158,3 @@ class Board :
 	    piece.set_position(goal)
 	    self.matrix[init_x][init_y] = None
 	    self.matrix[goal.get_x()][goal.get_y()] = piece
-
-
-	
