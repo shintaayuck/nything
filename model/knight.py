@@ -29,7 +29,7 @@ class Knight:
     @property    
     def color(self):
         #type: () -> bool
-        return self.__color()
+        return self.__color 
 
 
     @color.setter
@@ -58,15 +58,20 @@ class Knight:
         return li
 
 
+def main():
+    knight = Knight()
+    print(knight.color)
+
 if __name__ == '__main__':
     # Unit test
-    poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
+    # poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
 
-    for i, pos in enumerate(poses):
-        print('Knight {} - Pos: ({},{})'.format(i, pos.x, pos.y))
+    # for i, pos in enumerate(poses):
+    #     print('Knight {} - Pos: ({},{})'.format(i, pos.x, pos.y))
         
-        k = Knight(pos, True)
+    #     k = Knight(pos, True)
         
-        moves = k.show_possible_moves()
-        for move in moves:
-            print('({},{})'.format(move.x, move.y))
+    #     moves = k.show_possible_moves()
+    #     for move in moves:
+    #         print('({},{})'.format(move.x, move.y))
+    main()

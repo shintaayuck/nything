@@ -18,6 +18,8 @@ class Board :
 		self.matrix = [[None for i in range(self.size)] for j in range(self.size)]
 		self.ally_conflict = 0
 		self.enemy_conflict = 0
+		
+		i = 0
 		for piece in white_pieces :
 			occupied = True
 			while occupied :
@@ -25,8 +27,11 @@ class Board :
 				y = random.randint(0,self.size-1)
 				if(self.matrix[x][y] == None) :
 					occupied = False
-			self.matrix[x][y] = piece
+			i += 1
+			print(i)
 			piece.set_position(Position(x,y))
+			piece.get_position().print_attribute()
+			self.matrix[x][y] = piece
 		for piece in black_pieces :
 			occupied = True
 			while occupied :
@@ -158,3 +163,20 @@ class Board :
 	    piece.set_position(goal)
 	    self.matrix[init_x][init_y] = None
 	    self.matrix[goal.get_x()][goal.get_y()] = piece
+
+	def move_all_piece(self):
+
+		self.reset_board_matrix()
+
+		for piece in self.white_pieces :
+			temp_pos = Position(piece.get_position().get_x(),piece.get_position().get_y())
+			temp_pos.print_attribute()
+			self.matrix[temp_pos.get_x()][temp_pos.get_y()] = piece
+		
+	def reset_board_matrix(self):
+		for i in range(0,self.get_size()):
+			for j in range(0,self.get_size()):
+				self.matrix[i][j] = None
+
+
+		
