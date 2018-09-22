@@ -106,6 +106,15 @@ class Board :
 	    self.__matrix[init_x][init_y] = None
 	    self.__matrix[goal.x][goal.y] = piece
 
+	#combine pieces to one list
+	def combine_pieces(self) :
+		result = []
+		for piece in self.__white_pieces :
+			result.append(piece)
+		for piece in self.__black_pieces :
+			result.append(piece)
+		return result
+
 	#count a piece's conflict
 	def count_conflict(self, possible_moves, color) :
 		result = [0,0]

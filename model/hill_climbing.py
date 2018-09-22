@@ -17,7 +17,8 @@ def count_improvement(init_conflict, current_conflict) :
 #return the piece and its goal position with how much it improves
 def find_optimal_neighbor(board) :
     best_improvement = -sys.maxsize - 1
-    for piece in board.white_pieces :
+    all_pieces = board.combine_pieces()
+    for piece in all_pieces :
         x = piece.position.x
         y = piece.position.y
         board.matrix[x][y] = None
@@ -40,13 +41,8 @@ def find_optimal_neighbor(board) :
 def climb_hill(board) :
     n = 0
     climb = True
-    while(n < 20 and climb) :
-        board.draw()
+    while(n < 50 and climb) :
         board.count_all_conflict()
-        print('Ally conflict :', board.ally_conflict)
-        print('Enemy conflict :', board.enemy_conflict)
-        print('Score :', delta(board.ally_conflict, board.enemy_conflict))
-        print('')
         optimal_neighbor = find_optimal_neighbor(board)
         optimal_piece = optimal_neighbor[0]
         optimal_goal = optimal_neighbor[1]
@@ -56,4 +52,9 @@ def climb_hill(board) :
         else :
             board.move_piece(optimal_piece, optimal_goal)
         n += 1
+    board.draw()    
+    print('Ally conflict :', board.ally_conflict)
+    print('Enemy conflict :', board.enemy_conflict)
+    print('Score :', delta(board.ally_conflict, board.enemy_conflict))
+    print('')
     print('Number of iteration :', n)
