@@ -5,6 +5,7 @@ from position import Position
 from bishop import Bishop
 from rook import Rook
 from queen import Queen
+from knight import Knight
 
 class Board :
 	'Chess board for solving n-ything problem'
@@ -109,13 +110,21 @@ class Board :
 	def count_conflict(self, possible_moves, color) :
 		result = [0,0]
 		for moves in possible_moves :
-			for move in moves :
-				if(self.__matrix[move.x][move.y] != None) :
-					if(self.__matrix[move.x][move.y].color == color) :
+			if(type(moves) == type(Position())) :
+				if(self.__matrix[moves.x][moves.y] != None) :
+					if(self.__matrix[moves.x][moves.y].color == color) :
 						result[0] += 1
 					else :
 						result[1] += 1
 					break
+			else :
+				for move in moves :
+					if(self.__matrix[move.x][move.y] != None) :
+						if(self.__matrix[move.x][move.y].color == color) :
+							result[0] += 1
+						else :
+							result[1] += 1
+						break
 		return result
 
 
@@ -144,6 +153,7 @@ class Board :
 					queen = Queen()
 					rook = Rook()
 					bishop = Bishop()
+					knight = Knight()
 					if(type(self.__matrix[i][j]) == type(queen)) :
 						if(self.__matrix[i][j].color == True) :
 							print('Q ', end='')
@@ -159,4 +169,9 @@ class Board :
 							print('B ', end='')
 						else :
 							print('b ', end='')
+					elif(type(self.__matrix[i][j]) == type(knight)) :
+						if(self.__matrix[i][j].color == True) :
+							print('K ', end='')
+						else :
+							print('k ', end='')
 			print('')
