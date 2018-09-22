@@ -18,8 +18,6 @@ piece_8 = Rook(init_position, True)
 white_pieces = [piece_1, piece_2, piece_3,piece_4,piece_5,piece_6,piece_7,piece_8]
 black_pieces = copy.deepcopy(white_pieces)
 for piece in black_pieces :
-	piece.set_color(False)
+	piece.color = False
 board = Board(8, white_pieces, black_pieces)
-for piece in board.get_white_pieces() :
-	print(piece.get_position().get_x(), piece.get_position().get_y())
 climb_hill(board)

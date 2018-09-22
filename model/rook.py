@@ -2,39 +2,43 @@ from position import Position
 
 
 class Rook:
-    
+
     #Constanta
     MAXSIZE = 8
     MINSIZE = 0
 
     def __init__(self, pos = Position(), color = True):
-        self.pos = pos
-        self.color = color
-    #getter
-    def get_position(self):
-        return self.pos
+        self.__possition = pos
+        self.__color = color
+    # getter attributes
+    @property
+    def position(self):
+        return self.__position
 
-    def get_color(self):
-        return self.color
+    @property
+    def color(self):
+        return self.__color
 
-    #setter
-    def set_position(self,pos):
-        self.pos = pos
+    # setter attributes
+    @position.setter
+    def position(self, pos):
+        self.__position = pos
 
-    def set_color(self, color):
-        self.color = color
+    @color.setter
+    def color(self, color):
+        self.__color = color
 
     def possible_move_down(self, pos):
         li = []
         i = self.MINSIZE
-        
+
         currentY = getattr(pos,'y') + 1
         for Y in range(currentY,self.MAXSIZE) :
             newPos = Position(getattr(pos,'x'),Y)
             li.append(newPos)
         return li
 
-    
+
     def possible_move_right(self,pos):
         li = []
         i = self.MINSIZE
@@ -44,7 +48,7 @@ class Rook:
             newPos = Position(X,getattr(pos,'y'))
             li.append(newPos)
 
-        return li    
+        return li
 
     def possible_move_up(self, pos):
         li = []
@@ -71,7 +75,7 @@ class Rook:
 
     def show_possible_moves(self,position = None):
         liOfAllPossible = []
-        pos = position if position is not None else self.pos
+        pos = position if position is not None else self.position
 
         liOfAllPossible.append(self.possible_move_up(pos))
         liOfAllPossible.append(self.possible_move_down(pos))
@@ -95,7 +99,7 @@ class Rook:
 #     for x in li :
 #         for y in x :
 #             y.print_attribute()
-#         print()    
+#         print()
 
 # if __name__ == '__main__' :
 #     main()

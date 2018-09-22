@@ -23,11 +23,11 @@ class Bishop:
 
     # setter attributes
     @position.setter
-    def set_position(self, pos):
+    def position(self, pos):
         self.__position = pos
 
     @color.setter
-    def set_color(self, color):
+    def color(self, color):
         self.__color = color
 
     # methods
@@ -36,8 +36,8 @@ class Bishop:
         # input : pos [Position]
         # output: result [list of Position]
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
+        x = pos.x
+        y = pos.y
         while (y < self.MAXSIZE - 1) and (x > self.MINSIZE + 1):
             pos_temp = Position(x - 1, y + 1)
             result.append(pos_temp)
@@ -50,8 +50,8 @@ class Bishop:
         # input : pos [Position]
         # output: result [list of Position]
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
+        x = pos.x
+        y = pos.y
         while (y < self.MAXSIZE - 1) and (x < self.MAXSIZE - 1):
             pos_temp = Position(x + 1, y + 1)
             result.append(pos_temp)
@@ -64,8 +64,8 @@ class Bishop:
         # input : pos [Position]
         # output: result [list of Position]
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
+        x = pos.x
+        y = pos.y
         while (y > self.MINSIZE - 1) and (x > self.MINSIZE + 1):
             pos_temp = Position(x - 1, y - 1)
             result.append(pos_temp)
@@ -78,8 +78,8 @@ class Bishop:
         # input : pos [Position]
         # output: result [list of Position]
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
+        x = pos.x
+        y = pos.y
         while (y > self.MINSIZE - 1) and (x < self.MAXSIZE - 1):
             pos_temp = Position(x + 1, y - 1)
             result.append(pos_temp)
@@ -94,7 +94,7 @@ class Bishop:
         # output: result [list of Position]
 
         result = []
-        pos = position if position is not None else self.pos
+        pos = position if position is not None else self.position
 
         result.append(self.possible_move_up_left(pos))
         result.append(self.possible_move_up_right(pos))

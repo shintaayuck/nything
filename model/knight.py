@@ -18,7 +18,7 @@ class Knight:
     def position(self):
         # type: () -> Position
         return self.__position
-    
+
 
     @position.setter
     def position(self, pos):
@@ -26,10 +26,10 @@ class Knight:
         self.__position = pos
 
 
-    @property    
+    @property
     def color(self):
         #type: () -> bool
-        return self.__color()
+        return self.__color
 
 
     @color.setter
@@ -64,9 +64,9 @@ if __name__ == '__main__':
 
     for i, pos in enumerate(poses):
         print('Knight {} - Pos: ({},{})'.format(i, pos.x, pos.y))
-        
+
         k = Knight(pos, True)
-        
+
         moves = k.show_possible_moves()
         for move in moves:
             print('({},{})'.format(move.x, move.y))
