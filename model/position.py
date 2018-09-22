@@ -2,20 +2,24 @@ class Position :
 	'Position of an object in 2 dimensions'
 	#constructor
 	def __init__(self, x = None, y = None) :
-		self.x = x if x is not None else 0
-		self.y = y if y is not None else 0
+		self.__x = x if x is not None else 0
+		self.__y = y if y is not None else 0
 	#getters and setters
-	def get_x(self) :
-		return self.x
+	@property
+	def x(self) :
+		return self.__x
 
-	def get_y(self) :
-		return self.y
+	@property
+	def y(self) :
+		return self.__y
 
-	def set_x(self, x) :
-		self.x = x
+	@x.setter
+	def x(self, x) :
+		self.__x = x
 
-	def set_y(self, y) :
-		self.y = y
+	@y.setter
+	def y(self, y) :
+		self.__y = y
 
 	def print_attribute(self) :
 		print ("(",self.get_x(),",",self.get_y(),")")
