@@ -68,7 +68,7 @@ class Knight:
 
 if __name__ == '__main__':
     # Unit test
-    poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
+    # poses = [Position(0,0), Position(7,0), Position(7,7), Position(0,7), Position(4,4)]
 
     for i, pos in enumerate(poses):
         print('Knight {} - Pos: ({},{})'.format(i, pos.x, pos.y))

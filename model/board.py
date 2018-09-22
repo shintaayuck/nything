@@ -5,6 +5,7 @@ from position import Position
 from bishop import Bishop
 from rook import Rook
 from queen import Queen
+from knight import Knight
 
 class Board :
 	'Chess board for solving n-ything problem'
@@ -105,17 +106,34 @@ class Board :
 	    self.__matrix[init_x][init_y] = None
 	    self.__matrix[goal.x][goal.y] = piece
 
+	#combine pieces to one list
+	def combine_pieces(self) :
+		result = []
+		for piece in self.__white_pieces :
+			result.append(piece)
+		for piece in self.__black_pieces :
+			result.append(piece)
+		return result
+
 	#count a piece's conflict
 	def count_conflict(self, possible_moves, color) :
 		result = [0,0]
 		for moves in possible_moves :
-			for move in moves :
-				if(self.__matrix[move.x][move.y] != None) :
-					if(self.__matrix[move.x][move.y].color == color) :
+			if(type(moves) == type(Position())) :
+				if(self.__matrix[moves.x][moves.y] != None) :
+					if(self.__matrix[moves.x][moves.y].color == color) :
 						result[0] += 1
 					else :
 						result[1] += 1
 					break
+			else :
+				for move in moves :
+					if(self.__matrix[move.x][move.y] != None) :
+						if(self.__matrix[move.x][move.y].color == color) :
+							result[0] += 1
+						else :
+							result[1] += 1
+						break
 		return result
 
 
@@ -144,6 +162,7 @@ class Board :
 					queen = Queen()
 					rook = Rook()
 					bishop = Bishop()
+					knight = Knight()
 					if(type(self.__matrix[i][j]) == type(queen)) :
 						if(self.__matrix[i][j].color == True) :
 							print('Q ', end='')
@@ -159,4 +178,33 @@ class Board :
 							print('B ', end='')
 						else :
 							print('b ', end='')
+					elif(type(self.__matrix[i][j]) == type(knight)) :
+						if(self.__matrix[i][j].color == True) :
+							print('K ', end='')
+						else :
+							print('k ', end='')
 			print('')
+
+	def move_piece(self, piece, goal) :
+	    init_x = piece.get_position().get_x()
+	    init_y = piece.get_position().get_y()
+	    piece.set_position(goal)
+	    self.matrix[init_x][init_y] = None
+	    self.matrix[goal.get_x()][goal.get_y()] = piece
+
+	def move_all_piece(self):
+
+		self.reset_board_matrix()
+
+		for piece in self.white_pieces :
+			temp_pos = Position(piece.get_position().get_x(),piece.get_position().get_y())
+			temp_pos.print_attribute()
+			self.matrix[temp_pos.get_x()][temp_pos.get_y()] = piece
+		
+	def reset_board_matrix(self):
+		for i in range(0,self.get_size()):
+			for j in range(0,self.get_size()):
+				self.matrix[i][j] = None
+
+
+		
