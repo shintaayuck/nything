@@ -24,7 +24,7 @@ class Rook:
     def set_color(self, color):
         self.color = color
 
-    def possible_move_up(self, pos):
+    def possible_move_down(self, pos):
         li = []
         i = self.MINSIZE
         
@@ -46,7 +46,7 @@ class Rook:
 
         return li    
 
-    def possible_move_down(self, pos):
+    def possible_move_up(self, pos):
         li = []
         i = self.MINSIZE
 
@@ -79,6 +79,12 @@ class Rook:
         liOfAllPossible.append(self.possible_move_left(pos))
 
         return liOfAllPossible
+
+    def draw(self) :
+        if (self.get_color()):
+            print("R",end = '')
+        else:
+            print("r",end = '')
 
 # def main() :
 #     rook = Rook()
