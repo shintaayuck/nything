@@ -5,7 +5,7 @@ class Knight:
 
     # Constants
     MAXSIZE = 8
-    MINSIZE = 8
+    MINSIZE = 0
     RELATIVE_MOVEMENT = [(-2, -1), (-2, 1), (2, -1), (2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2)]
 
     def __init__(self, pos = Position(), color = True):
@@ -46,8 +46,8 @@ class Knight:
         my_x, my_y = my_position.x, my_position.y
 
         # as tuple unpacking is gone in Python 3, must find a workaround for lambda function
-        valid_position = lambda point : (point[0] >= 0 and point[1] >= 0)\
-                                        and (point[0] < 8 and point[0] < 8)
+        valid_position = lambda point : (point[0] >= self.MINSIZE and point[1] >= self.MINSIZE)\
+                                        and (point[0] < self.MAXSIZE and point[1] < self.MAXSIZE)
         moves = lambda point : (my_x + point[0], my_y + point[1])
         temp_li = filter(valid_position, map(moves, self.RELATIVE_MOVEMENT))
 
@@ -56,6 +56,14 @@ class Knight:
             li.append(pos_temp)
 
         return li
+
+
+    def draw(self):
+        # type: () -> None
+        if (self.color):
+            print('K',end='')
+        else:
+            print('k',end='')
 
 
 if __name__ == '__main__':
