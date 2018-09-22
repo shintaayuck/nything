@@ -5,156 +5,184 @@ from position import Position
 from bishop import Bishop
 from rook import Rook
 from queen import Queen
+from knight import Knight
 
 class Board :
 	'Chess board for solving n-ything problem'
 	#constructor
 	def __init__(self, size = None, white_pieces = None, black_pieces = None) :
 		random.seed(time.time())
-		self.size = size if size is not None else 8
-		self.matrix = []
-		self.white_pieces = white_pieces if white_pieces is not None else []
-		self.black_pieces = black_pieces if black_pieces is not None else []
-		self.matrix = [[None for i in range(self.size)] for j in range(self.size)]
-		self.ally_conflict = 0
-		self.enemy_conflict = 0
-		
-		i = 0
+		self.__size = size if size is not None else 8
+		self.__matrix = []
+		self.__white_pieces = white_pieces if white_pieces is not None else []
+		self.__black_pieces = black_pieces if black_pieces is not None else []
+		self.__matrix = [[None for i in range(self.__size)] for j in range(self.__size)]
+		self.__ally_conflict = 0
+		self.__enemy_conflict = 0
 		for piece in white_pieces :
 			occupied = True
 			while occupied :
-				x = random.randint(0,self.size-1)
-				y = random.randint(0,self.size-1)
-				if(self.matrix[x][y] == None) :
+				x = random.randint(0,self.__size-1)
+				y = random.randint(0,self.__size-1)
+				if(self.__matrix[x][y] == None) :
 					occupied = False
-			i += 1
-			print(i)
-			piece.set_position(Position(x,y))
-			piece.get_position().print_attribute()
-			self.matrix[x][y] = piece
+			self.__matrix[x][y] = piece
+			piece.position = Position(x,y)
 		for piece in black_pieces :
 			occupied = True
 			while occupied :
-				x = random.randint(0,self.size-1)
-				y = random.randint(0,self.size-1)
-				if(self.matrix[x][y] == None) :
+				x = random.randint(0,self.__size-1)
+				y = random.randint(0,self.__size-1)
+				if(self.__matrix[x][y] == None) :
 					occupied = False
-			self.matrix[x][y] = piece
-			piece.set_position(Position(x,y))
-
-	def __str__(self):
-		return str(self.__dict__)
-
-	def __eq__(self, other):
-		return self.__dict__ == other.__dict__
+			self.__matrix[x][y] = piece
+			piece.position = Position(x,y)
 
 	#getters and setters
-	def get_size(self) :
-		return self.size
+	@property
+	def size(self) :
+		return self.__size
 
-	def get_matrix(self) :
-		return self.matrix
+	@property
+	def matrix(self) :
+		return self.__matrix
 
-	def get_white_pieces(self) :
-		return self.white_pieces
+	@property
+	def white_pieces(self) :
+		return self.__white_pieces
 
-	def get_black_pieces(self) :
-		return self.black_pieces
+	@property
+	def black_pieces(self) :
+		return self.__black_pieces
 
-	def get_ally_conflict(self) :
-		return self.ally_conflict
+	@property
+	def ally_conflict(self) :
+		return self.__ally_conflict
 
-	def get_enemy_conflict(self) :
-		return self.enemy_conflict
+	@property
+	def enemy_conflict(self) :
+		return self.__enemy_conflict
 
-	def set_size(self, size) :
-		self.size = size
+	@size.setter
+	def size(self, size) :
+		self.__size = size
 
-	def set_matrix(self, matrix) :
-		self.matrix = matrix
+	@matrix.setter
+	def matrix(self, matrix) :
+		self.__matrix = matrix
 
-	def set_white_pieces(self, white_pieces) :
-		self.white_pieces = copy.deepcopy(white_pieces)
+	@white_pieces.setter
+	def white_pieces(self, white_pieces) :
+		self.__white_pieces = copy.deepcopy(white_pieces)
 
-	def set_black_pieces(self, black_pieces) :
-		self.black_pieces = copy.deepcopy(black_pieces)
+	@black_pieces.setter
+	def black_pieces(self, black_pieces) :
+		self.__black_pieces = copy.deepcopy(black_pieces)
 
-	def set_ally_conflict(self, ally_conflict) :
-		self.ally_conflict = ally_conflict
+	@ally_conflict.setter
+	def ally_conflict(self, ally_conflict) :
+		self.__ally_conflict = ally_conflict
 
-	def set_enemy_conflict(self, enemy_conflict) :
-		self.enemy_conflict = enemy_conflict
+	@enemy_conflict.setter
+	def enemy_conflict(self, enemy_conflict) :
+		self.__enemy_conflict = enemy_conflict
 
 	#method functions
 	#delete a piece from specific position
 	def delete_piece(self, position) :
-		result = self.matrix[position.get_x(), position.get_y()]
-		self.matrix[position.get_x(), position.get_y()] = None
+		result = self.__matrix[position.x, position.y]
+		self.__matrix[position.x, position.y] = None
 		return result
 
 	#insert a piece to specific position
 	def insert_piece(self, position, piece) :
-		self.matrix[position.get_x(), position.get_y()] = piece
+		self.__matrix[position.x, position.y] = piece
 
 	#move a piece to specific position
-	def move_piece(self, init_position, goal_position) :
-		piece = delete_piece(init_position)
-		insert_piece(goal_position, piece)
+	def move_piece(self, piece, goal) :
+	    init_x = piece.position.x
+	    init_y = piece.position.y
+	    piece.position = goal
+	    self.__matrix[init_x][init_y] = None
+	    self.__matrix[goal.x][goal.y] = piece
+
+	#combine pieces to one list
+	def combine_pieces(self) :
+		result = []
+		for piece in self.__white_pieces :
+			result.append(piece)
+		for piece in self.__black_pieces :
+			result.append(piece)
+		return result
 
 	#count a piece's conflict
 	def count_conflict(self, possible_moves, color) :
 		result = [0,0]
 		for moves in possible_moves :
-			for move in moves :
-				if(self.matrix[move.get_x()][move.get_y()] != None) :
-					if(self.matrix[move.get_x()][move.get_y()].get_color() == color) :
+			if(type(moves) == type(Position())) :
+				if(self.__matrix[moves.x][moves.y] != None) :
+					if(self.__matrix[moves.x][moves.y].color == color) :
 						result[0] += 1
 					else :
 						result[1] += 1
 					break
+			else :
+				for move in moves :
+					if(self.__matrix[move.x][move.y] != None) :
+						if(self.__matrix[move.x][move.y].color == color) :
+							result[0] += 1
+						else :
+							result[1] += 1
+						break
 		return result
 
 
 	#count all pieces' conflict
 	def count_all_conflict(self) :
-		self.ally_conflict = 0
-		self.enemy_conflict = 0
-		for piece in self.white_pieces :
-			possible_moves = piece.show_possible_moves(piece.get_position())
-			piece_conflict = self.count_conflict(possible_moves, piece.get_color())
-			self.ally_conflict += piece_conflict[0]
-			self.enemy_conflict += piece_conflict[1]
-		for piece in self.black_pieces :
-			possible_moves = piece.show_possible_moves(piece.get_position())
-			piece_conflict = self.count_conflict(possible_moves, piece.get_color())
-			self.ally_conflict += piece_conflict[0]
-			self.enemy_conflict += piece_conflict[1]
+		self.__ally_conflict = 0
+		self.__enemy_conflict = 0
+		for piece in self.__white_pieces :
+			possible_moves = piece.show_possible_moves(piece.position)
+			piece_conflict = self.count_conflict(possible_moves, piece.color)
+			self.__ally_conflict += piece_conflict[0]
+			self.__enemy_conflict += piece_conflict[1]
+		for piece in self.__black_pieces :
+			possible_moves = piece.show_possible_moves(piece.position)
+			piece_conflict = self.count_conflict(possible_moves, piece.color)
+			self.__ally_conflict += piece_conflict[0]
+			self.__enemy_conflict += piece_conflict[1]
 
 	#draw
 	def draw(self) :
-		for i in range(self.size) :
-			for j in range(self.size) :
-				if self.matrix[i][j] == None :
+		for i in range(self.__size) :
+			for j in range(self.__size) :
+				if self.__matrix[i][j] == None :
 					print('- ', end='')
 				else :
 					queen = Queen()
 					rook = Rook()
 					bishop = Bishop()
-					if(type(self.matrix[i][j]) == type(queen)) :
-						if(self.matrix[i][j].get_color() == True) :
+					knight = Knight()
+					if(type(self.__matrix[i][j]) == type(queen)) :
+						if(self.__matrix[i][j].color == True) :
 							print('Q ', end='')
 						else :
 							print('q ', end='')
-					elif(type(self.matrix[i][j]) == type(rook)) :
-						if(self.matrix[i][j].get_color() == True) :
+					elif(type(self.__matrix[i][j]) == type(rook)) :
+						if(self.__matrix[i][j].color == True) :
 							print('R ', end='')
 						else :
 							print('r ', end='')
-					elif(type(self.matrix[i][j]) == type(bishop)) :
-						if(self.matrix[i][j].get_color() == True) :
+					elif(type(self.__matrix[i][j]) == type(bishop)) :
+						if(self.__matrix[i][j].color == True) :
 							print('B ', end='')
 						else :
 							print('b ', end='')
+					elif(type(self.__matrix[i][j]) == type(knight)) :
+						if(self.__matrix[i][j].color == True) :
+							print('K ', end='')
+						else :
+							print('k ', end='')
 			print('')
 
 	def move_piece(self, piece, goal) :
@@ -169,13 +197,13 @@ class Board :
 		self.reset_board_matrix()
 
 		for piece in self.white_pieces :
-			temp_pos = Position(piece.get_position().get_x(),piece.get_position().get_y())
+			temp_pos = Position(piece.position.x,piece.position.y)
 			temp_pos.print_attribute()
-			self.matrix[temp_pos.get_x()][temp_pos.get_y()] = piece
+			self.matrix[temp_pos.x][temp_pos.y] = piece
 		
 	def reset_board_matrix(self):
-		for i in range(0,self.get_size()):
-			for j in range(0,self.get_size()):
+		for i in range(0,self.size):
+			for j in range(0,self.size):
 				self.matrix[i][j] = None
 
 

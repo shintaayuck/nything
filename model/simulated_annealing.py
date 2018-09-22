@@ -13,11 +13,15 @@ def simulated_annealing(board,schedule):
     solution = False
     temperature = 2000
     current_board = board
-    current_state = board.get_white_pieces()
+    current_state = board.white_pieces
     second_board = copy.deepcopy(board)
+    li = second_board.white_pieces
     second_board.reset_board_matrix()
+
     current_board.draw()
     print()
+    li[0].position.x = 0
+    li[0].position.y = 0
     second_board.move_all_piece()
     second_board.draw()
     # for piece in current_state :
@@ -49,7 +53,7 @@ def simulated_annealing(board,schedule):
 
 def eval(board):
     board.count_all_conflict()
-    return board.get_ally_conflict()
+    return board.ally_conflict
 
 
 
