@@ -181,3 +181,27 @@ class Board :
 						else :
 							print('k ', end='')
 			print('')
+
+	def move_piece(self, piece, goal) :
+	    init_x = piece.get_position().get_x()
+	    init_y = piece.get_position().get_y()
+	    piece.set_position(goal)
+	    self.matrix[init_x][init_y] = None
+	    self.matrix[goal.get_x()][goal.get_y()] = piece
+
+	def move_all_piece(self):
+
+		self.reset_board_matrix()
+
+		for piece in self.white_pieces :
+			temp_pos = Position(piece.get_position().get_x(),piece.get_position().get_y())
+			temp_pos.print_attribute()
+			self.matrix[temp_pos.get_x()][temp_pos.get_y()] = piece
+		
+	def reset_board_matrix(self):
+		for i in range(0,self.get_size()):
+			for j in range(0,self.get_size()):
+				self.matrix[i][j] = None
+
+
+		
