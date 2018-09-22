@@ -1,5 +1,6 @@
 import copy
 import sys
+import random
 from board import Board
 from position import Position
 
@@ -52,7 +53,7 @@ def climb_hill(board) :
         else :
             board.move_piece(optimal_piece, optimal_goal)
         n += 1
-    board.draw()    
+    board.draw()
     print('Ally conflict :', board.ally_conflict)
     print('Enemy conflict :', board.enemy_conflict)
     print('Score :', delta(board.ally_conflict, board.enemy_conflict))

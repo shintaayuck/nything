@@ -22,4 +22,4 @@ class Position :
 		self.__y = y
 
 	def print_attribute(self) :
-		print ("(",self.get_x(),",",self.get_y(),")")
+		print ("(",self.x,",",self.y,")")
