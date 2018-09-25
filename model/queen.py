@@ -100,7 +100,7 @@ class Queen:
         result = []
         x = pos.x
         y = pos.y
-        while (y > self.MINSIZE - 1) and (x > self.MINSIZE + 1):
+        while (y > self.MINSIZE + 1) and (x > self.MINSIZE + 1):
             pos_temp = Position(x - 1, y - 1)
             result.append(pos_temp)
             x = x - 1
