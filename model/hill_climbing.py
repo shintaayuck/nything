@@ -13,10 +13,14 @@ def delta(x, y) :
     return y - x
 
 #count the improvement from initial state to goal state
-def count_improvement(init_conflict, current_conflict) :
+def count_improvement(board, piece, goal) :
+    init_possible_moves = piece.show_possible_moves()
+    goal_possible_moves = piece.show_possible_moves(goal)
+    init_conflict = board.count_conflict(init_possible_moves, piece.color)
+    goal_conflict = board.count_conflict(goal_possible_moves, piece.color)
     delta_init = delta(init_conflict[0], init_conflict[1])
-    delta_current = delta(current_conflict[0], current_conflict[1])
-    return delta(delta_init, delta_current)
+    delta_goal = delta(goal_conflict[0], goal_conflict[1])
+    return delta(delta_init, delta_goal)
 
 #find optimal neighbor
 #return the piece and its goal position with how much it improves
@@ -30,11 +34,7 @@ def find_optimal_neighbor(board) :
         for i in range(board.size):
             for j in range(board.size):
                 if(board.matrix[i][j] == None) :
-                    init_possible_moves = piece.show_possible_moves()
-                    possible_moves = piece.show_possible_moves(Position(i,j))
-                    init_conflict = board.count_conflict(init_possible_moves, piece.color)
-                    temp_conflict = board.count_conflict(possible_moves, piece.color)
-                    improvement = count_improvement(init_conflict, temp_conflict)
+                    improvement = count_improvement(board, piece, Position(i,j))
                     if(improvement > best_improvement):
                         best_improvement = improvement
                         goal = Position(i,j)
