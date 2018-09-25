@@ -31,57 +31,45 @@ class Bishop:
         self.__color = color
 
     # methods
-    def possible_move_up_left(self, pos):
-        # this method calculates possible move to up left side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_up_right(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y < self.MAXSIZE - 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y + 1)
+        x = pos.x - 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y + 1
         return result
 
-    def possible_move_up_right(self, pos):
-        # this method calculates possible move to up right side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_down_right(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y < self.MAXSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y + 1)
+        x = pos.x + 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y + 1
         return result
 
-    def possible_move_down_left(self, pos):
-        # this method calculates possible move to down left side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_up_left(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y > self.MINSIZE - 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y - 1)
+        x = pos.x - 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y - 1
         return result
 
-    def possible_move_down_right(self, pos):
-        # this method calculates possible move to down right side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_down_left(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y - 1)
+        x = pos.x + 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y - 1

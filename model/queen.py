@@ -32,14 +32,11 @@ class Queen:
 
     # methods
     def possible_move_right(self, pos):
-        # this method calculates possible move to up left side from queen
-        # input : pos [Position]
-        # output: result [list of Position]
         result = []
         x = pos.x
-        y = pos.y
-        while (y < self.MAXSIZE - 1):
-            pos_temp = Position(x, y + 1)
+        y = pos.y + 1
+        while (y < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             y = y + 1
         return result
@@ -47,39 +44,39 @@ class Queen:
     def possible_move_left(self, pos):
         result = []
         x = pos.x
-        y = pos.y
-        while (y > self.MINSIZE + 1):
-            pos_temp = Position(x, y - 1)
+        y = pos.y - 1
+        while (y > self.MINSIZE-1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             y = y - 1
         return result
 
     def possible_move_down(self, pos):
         result = []
-        x = pos.x
+        x = pos.x + 1
         y = pos.y
-        while (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y)
+        while (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
         return result
 
     def possible_move_up(self, pos):
         result = []
-        x = pos.x
+        x = pos.x - 1
         y = pos.y
-        while (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y)
+        while (x > self.MINSIZE-1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
         return result
 
     def possible_move_up_right(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y < self.MAXSIZE - 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y + 1)
+        x = pos.x - 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y + 1
@@ -87,10 +84,10 @@ class Queen:
 
     def possible_move_down_right(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y < self.MAXSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y + 1)
+        x = pos.x + 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y + 1
@@ -98,10 +95,10 @@ class Queen:
 
     def possible_move_up_left(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y > self.MINSIZE + 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y - 1)
+        x = pos.x - 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y - 1
@@ -109,17 +106,17 @@ class Queen:
 
     def possible_move_down_left(self, pos):
         result = []
-        x = pos.x
-        y = pos.y
-        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y - 1)
+        x = pos.x + 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y - 1
         return result
 
     def show_possible_moves(self, position=None):
-        pos = position if position is not None else self.pos
+        pos = position if position is not None else self.position
         list = []
         list.append(self.possible_move_up(pos))
         list.append(self.possible_move_up_right(pos))
@@ -132,10 +129,10 @@ class Queen:
         return list
 
     def draw(self) :
-        if (self.get_color()):
-            print("Q",end = '')
+        if (self.__color):
+            print("Q ",end = '')
         else:
-            print("q",end = '')
+            print("q ",end = '')
 
 # p = Position(3,4)
 # q = Queen(p, True)
