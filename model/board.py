@@ -118,6 +118,8 @@ class Board :
 			result.append(piece)
 		for piece in self.__black_pieces :
 			result.append(piece)
+		print("aha" , len(self.__white_pieces))
+		print("ahay" , len(self.__black_pieces))
 		return result
 
 	#return randomized unoccupied position

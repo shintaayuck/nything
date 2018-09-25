@@ -74,7 +74,7 @@ class Queen:
             x = x - 1
         return result
 
-    def possible_move_up_left(self, pos):
+    def possible_move_up_right(self, pos):
         result = []
         x = pos.x
         y = pos.y
@@ -85,7 +85,7 @@ class Queen:
             y = y + 1
         return result
 
-    def possible_move_up_right(self, pos):
+    def possible_move_down_right(self, pos):
         result = []
         x = pos.x
         y = pos.y
@@ -96,7 +96,7 @@ class Queen:
             y = y + 1
         return result
 
-    def possible_move_down_left(self, pos):
+    def possible_move_up_left(self, pos):
         result = []
         x = pos.x
         y = pos.y
@@ -107,7 +107,7 @@ class Queen:
             y = y - 1
         return result
 
-    def possible_move_down_right(self, pos):
+    def possible_move_down_left(self, pos):
         result = []
         x = pos.x
         y = pos.y
@@ -119,7 +119,7 @@ class Queen:
         return result
 
     def show_possible_moves(self, position=None):
-        pos = position if position is not None else self.position
+        pos = position if position is not None else self.pos
         list = []
         list.append(self.possible_move_up(pos))
         list.append(self.possible_move_up_right(pos))
@@ -131,6 +131,11 @@ class Queen:
         list.append(self.possible_move_up_left(pos))
         return list
 
+    def draw(self) :
+        if (self.get_color()):
+            print("Q",end = '')
+        else:
+            print("q",end = '')
 
 # p = Position(3,4)
 # q = Queen(p, True)

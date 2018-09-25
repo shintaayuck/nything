@@ -26,7 +26,7 @@ def genetic_algorithm(population, mutation_probability = 1.0):
     for _ in range(math.floor(len(population)/2)):
         parent_board_indices = np.random.choice(index, 2, replace=True, p=weight)
         print(population[parent_board_indices[0]])
-        child_board_1, child_board_2 = crossover(population[parent_board_indices[0]], population[parent_board_indices[1]])
+        child_board_1, child_board_2 = crossover(population[parent_board_indices[0]][1], population[parent_board_indices[1]][1])
 
         if random.random() <= mutation_probability:
             child_board_1 = mutation(child_board_1)
@@ -50,14 +50,14 @@ def initialize_population(pieces, initial_population = 10):
             white_pieces.append(new_piece)
         else:
             black_pieces.append(new_piece)
-    
+
     for _ in range(0,10):
         board = Board(8, white_pieces, black_pieces)
         population.append((fitness(board), board))
         # print(fitness(board))
         # print(board.white_pieces)
         # print(board.black_pieces)
-    
+
     return population
 
 
@@ -71,12 +71,12 @@ def crossover(board1, board2):
     board2_piece = board2.combine_pieces()
 
     piece_count = len(board1_piece)
+
     crossover_index = random.randint(1, piece_count - 1)
 
     for n in range(crossover_index, piece_count):
-        board1_piece[n].position, board2_piece[n].position \
-            = board2_piece[n].position, board1_piece[n].position
-    
+        board1_piece[n].position, board2_piece[n].position = board2_piece[n].position, board1_piece[n].position
+
     n_white = len(board1.white_pieces)
     n_black = len(board1.black_pieces)
 
@@ -131,6 +131,6 @@ if __name__ == '__main__':
         if len(max_scores) >= 10:
             max_scores.pop(0)
         max_scores.append(max(population[0]))
-    print('aaa')    
+    print('aaa')
     population.sort()
     population[0][1].draw()
