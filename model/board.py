@@ -158,12 +158,8 @@ class Board :
 	def count_all_conflict(self) :
 		self.__ally_conflict = 0
 		self.__enemy_conflict = 0
-		for piece in self.__white_pieces :
-			possible_moves = piece.show_possible_moves(piece.position)
-			piece_conflict = self.count_conflict(possible_moves, piece.color)
-			self.__ally_conflict += piece_conflict[0]
-			self.__enemy_conflict += piece_conflict[1]
-		for piece in self.__black_pieces :
+		all_pieces = self.combine_pieces()
+		for piece in all_pieces :
 			possible_moves = piece.show_possible_moves(piece.position)
 			piece_conflict = self.count_conflict(possible_moves, piece.color)
 			self.__ally_conflict += piece_conflict[0]
@@ -176,28 +172,5 @@ class Board :
 				if self.__matrix[i][j] == None :
 					print('- ', end='')
 				else :
-					queen = Queen()
-					rook = Rook()
-					bishop = Bishop()
-					knight = Knight()
-					if(type(self.__matrix[i][j]) == type(queen)) :
-						if(self.__matrix[i][j].color == True) :
-							print('Q ', end='')
-						else :
-							print('q ', end='')
-					elif(type(self.__matrix[i][j]) == type(rook)) :
-						if(self.__matrix[i][j].color == True) :
-							print('R ', end='')
-						else :
-							print('r ', end='')
-					elif(type(self.__matrix[i][j]) == type(bishop)) :
-						if(self.__matrix[i][j].color == True) :
-							print('B ', end='')
-						else :
-							print('b ', end='')
-					elif(type(self.__matrix[i][j]) == type(knight)) :
-						if(self.__matrix[i][j].color == True) :
-							print('K ', end='')
-						else :
-							print('k ', end='')
+					self.__matrix[i][j].draw()
 			print('')

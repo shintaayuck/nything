@@ -107,7 +107,10 @@ class Bishop:
         # this method prints Bishop symbol 'B'
         # input : None
         # output: 'B'
-        print('B', end='')
+        if(self.__color) :
+            print('B ', end='')
+        else :
+            print('b ', end='')
 
 # bishop = Bishop()
 # pos = Position(4,4)
