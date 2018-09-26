@@ -156,12 +156,8 @@ class Board :
 	def count_all_conflict(self) :
 		self.__ally_conflict = 0
 		self.__enemy_conflict = 0
-		for piece in self.__white_pieces :
-			possible_moves = piece.show_possible_moves(piece.position)
-			piece_conflict = self.count_conflict(possible_moves, piece.color)
-			self.__ally_conflict += piece_conflict[0]
-			self.__enemy_conflict += piece_conflict[1]
-		for piece in self.__black_pieces :
+		all_pieces = self.combine_pieces()
+		for piece in all_pieces :
 			possible_moves = piece.show_possible_moves(piece.position)
 			piece_conflict = self.count_conflict(possible_moves, piece.color)
 			self.__ally_conflict += piece_conflict[0]
@@ -174,52 +170,5 @@ class Board :
 				if self.__matrix[i][j] == None :
 					print('- ', end='')
 				else :
-					queen = Queen()
-					rook = Rook()
-					bishop = Bishop()
-					knight = Knight()
-					if(type(self.__matrix[i][j]) == type(queen)) :
-						if(self.__matrix[i][j].color == True) :
-							print('Q ', end='')
-						else :
-							print('q ', end='')
-					elif(type(self.__matrix[i][j]) == type(rook)) :
-						if(self.__matrix[i][j].color == True) :
-							print('R ', end='')
-						else :
-							print('r ', end='')
-					elif(type(self.__matrix[i][j]) == type(bishop)) :
-						if(self.__matrix[i][j].color == True) :
-							print('B ', end='')
-						else :
-							print('b ', end='')
-					elif(type(self.__matrix[i][j]) == type(knight)) :
-						if(self.__matrix[i][j].color == True) :
-							print('K ', end='')
-						else :
-							print('k ', end='')
+					self.__matrix[i][j].draw()
 			print('')
-
-	def move_piece(self, piece, goal) :
-	    init_x = piece.get_position().get_x()
-	    init_y = piece.get_position().get_y()
-	    piece.set_position(goal)
-	    self.matrix[init_x][init_y] = None
-	    self.matrix[goal.get_x()][goal.get_y()] = piece
-
-	def move_all_piece(self):
-
-		self.reset_board_matrix()
-
-		for piece in self.white_pieces :
-			temp_pos = Position(piece.position.x,piece.position.y)
-			temp_pos.print_attribute()
-			self.matrix[temp_pos.x][temp_pos.y] = piece
-		
-	def reset_board_matrix(self):
-		for i in range(0,self.size):
-			for j in range(0,self.size):
-				self.matrix[i][j] = None
-
-
-		

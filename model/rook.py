@@ -85,10 +85,10 @@ class Rook:
         return liOfAllPossible
 
     def draw(self) :
-        if (self.get_color()):
-            print("R",end = '')
+        if (self.__color):
+            print("R ",end = '')
         else:
-            print("r",end = '')
+            print("r ",end = '')
 
 # def main() :
 #     rook = Rook()

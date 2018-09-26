@@ -1,18 +1,26 @@
 import copy
 import sys
 import random
-from board import Board
 from position import Position
+from board import Board
+from bishop import Bishop
+from rook import Rook
+from queen import Queen
+from knight import Knight
 
 #count delta of x and y
 def delta(x, y) :
     return y - x
 
 #count the improvement from initial state to goal state
-def count_improvement(init_conflict, current_conflict) :
+def count_improvement(board, piece, goal) :
+    init_possible_moves = piece.show_possible_moves()
+    goal_possible_moves = piece.show_possible_moves(goal)
+    init_conflict = board.count_conflict(init_possible_moves, piece.color)
+    goal_conflict = board.count_conflict(goal_possible_moves, piece.color)
     delta_init = delta(init_conflict[0], init_conflict[1])
-    delta_current = delta(current_conflict[0], current_conflict[1])
-    return delta(delta_init, delta_current)
+    delta_goal = delta(goal_conflict[0], goal_conflict[1])
+    return delta(delta_init, delta_goal)
 
 #find optimal neighbor
 #return the piece and its goal position with how much it improves
@@ -26,11 +34,7 @@ def find_optimal_neighbor(board) :
         for i in range(board.size):
             for j in range(board.size):
                 if(board.matrix[i][j] == None) :
-                    init_possible_moves = piece.show_possible_moves()
-                    possible_moves = piece.show_possible_moves(Position(i,j))
-                    init_conflict = board.count_conflict(init_possible_moves, piece.color)
-                    temp_conflict = board.count_conflict(possible_moves, piece.color)
-                    improvement = count_improvement(init_conflict, temp_conflict)
+                    improvement = count_improvement(board, piece, Position(i,j))
                     if(improvement > best_improvement):
                         best_improvement = improvement
                         goal = Position(i,j)
@@ -59,3 +63,22 @@ def climb_hill(board) :
     print('Score :', delta(board.ally_conflict, board.enemy_conflict))
     print('')
     print('Number of iteration :', n)
+
+def main() :
+    init_position = Position(0, 0)
+    piece_1 =Bishop(init_position, True)
+    piece_2 = Bishop(init_position, True)
+    # piece_6 = Rook(init_position, True)
+    # piece_7 = Bishop(init_position, True)
+    # piece_8 = Knight(init_position, True)
+    white_pieces = [piece_1, piece_2]
+    # black_pieces = [piece_3, piece_4, piece_5]
+    # , piece_3,piece_4]
+    # ,piece_5,piece_6,piece_7,piece_8]
+    black_pieces = copy.deepcopy(white_pieces)
+    for piece in black_pieces :
+        piece.color = False
+    board = Board(8, white_pieces, black_pieces)
+    climb_hill(board)
+
+main()

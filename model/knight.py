@@ -59,11 +59,13 @@ class Knight:
 
 
     def draw(self):
-        # type: () -> None
-        if (self.color):
-            print('K',end='')
-        else:
-            print('k',end='')
+        # this method prints Bishop symbol 'K'
+        # input : None
+        # output: 'K'
+        if(self.__color) :
+            print('K ', end='')
+        else :
+            print('k ', end='')
 
 
 if __name__ == '__main__':
