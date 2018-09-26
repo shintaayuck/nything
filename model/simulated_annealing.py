@@ -7,54 +7,72 @@ from rook import Rook
 import decimal
 import math
 import random
+import copy
 
-def simulated_annealing(board,schedule):
+def simulated_annealing(board,schedule,is_one_color):
     solution = False
-    temperature = 2000
-    current_board = Board(board.get_size(),board.get_white_pieces(),[])
-    current_state = board.get_white_pieces()
+    temperature = 4000
+    current_board = copy.deepcopy(board)
 
-    for t in range(0,2) :
-        second_board = Board(8,[],[])
+    current_board.draw()
+    print(eval(current_board))
+    print("Number of Ally Conflict : ",current_board.ally_conflict)
+    print("Number of Enemy Conflict : ",current_board.enemy_conflict)
+
+    for t in range (0, 500):
+        second_board = copy.deepcopy(board)
+        li_pieces = second_board.combine_pieces()
+
+        idx = random.randint(0,len(second_board.combine_pieces())-1)
+        # print(t,"-",idx,"-",t % 500)
         temperature *= schedule
-        second_state = []
-        for i in range(0,len(current_state)):
-            second_state.append(current_state[i])
-        second_state,second_board = random_move_set(second_state,second_board)
+        
+        temp_pos = second_board.random_position()
+        second_board.move_piece(li_pieces[idx],temp_pos)
 
-        delta_e = eval(current_state,current_board) - eval(second_state,second_board)
-        print(eval(current_state,current_board),"-",eval(second_state,second_board))
+        delta_e = (eval(current_board) - eval(second_board))
+        prob = 1/(math.e ** (- t*delta_e /temperature ))
 
-        current_board.set_white_pieces(current_state)
-        current_board.draw()
-        print("\n\n")
-        # exp = decimal.Decimal(decimal.Decimal(math.e) ** (decimal.Decimal(-dw) * decimal.Decimal(temperature)))
+        # print ("%d - %.2f - temp: %.2f" % (delta_e,prob,temperature))
+        if (delta_e > 0 or prob > random.uniform(0,1) ) :
+            current_board = copy.deepcopy(second_board)
+        # if(delta_e > 0) :
+            # current_board = copy.deepcopy(second_board)
 
+        if (is_one_color and current_board.ally_conflict == 0) :
+            break
+    
+    print()
+    current_board.draw()
+    print("Number of Ally Conflict : ",current_board.ally_conflict)
+    print("Number of Enemy Conflict : ",current_board.enemy_conflict)
+    print("Number of step : ",t )
+    print("Score : ",current_board.enemy_conflict - current_board.ally_conflict)
 
-def eval(pieces,board):
-    return board.count_all_conflict_white(pieces)
+    return current_board    
 
-def random_move_set(pieces,board): 
-    for piece in pieces :
-        occupied = True
-        while occupied :
-            x = random.randint(0,board.get_size()-1)
-            y = random.randint(0,board.get_size()-1)
-            if(board.matrix[x][y] == None) :
-                occupied = False
-        board.matrix[x][y] = piece
-        piece.set_position(Position(x,y))
-    return pieces,board
+def eval(board):
+    board.count_all_conflict()
+    return board.ally_conflict
 
 def main():
-    rook = Rook()
-    print(rook.get_color())
     li = []
+    li1 = []
     for i in range (0,8):
+        rook = Rook()
+        rook1 = Rook(Position(),False)
         li.append(rook)
-    board = Board(8,li,[])
-    print(li)
-    simulated_annealing(board,0.99)
+        li1.append(rook1)
+    
+    board = Board(8,li,li1)
+    # print(li)
+    # print("panjang li",len(li))
+    again= True
+    while(again) :
+        board = simulated_annealing(board,0.99,False)
+        x = input("lagi ?")
+        if(x == 'ga') :
+            again = False
 
 if __name__ == '__main__' :
     main()

@@ -9,75 +9,67 @@ class Bishop:
 
     # constructor
     def __init__(self, pos=Position(), color=True):
-        self.pos = pos
-        self.color = color
+        self.__position = pos
+        self.__color = color
 
     # getter attributes
-    def get_position(self):
-        return self.pos
+    @property
+    def position(self):
+        return self.__position
 
-    def get_color(self):
-        return self.color
+    @property
+    def color(self):
+        return self.__color
 
     # setter attributes
-    def set_position(self, pos):
-        self.pos = pos
+    @position.setter
+    def position(self, pos):
+        self.__position = pos
 
-    def set_color(self, color):
-        self.color = color
+    @color.setter
+    def color(self, color):
+        self.__color = color
 
     # methods
-    def possible_move_up_left(self, pos):
-        # this method calculates possible move to up left side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_up_right(self, pos):
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
-        while (y < self.MAXSIZE - 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y + 1)
+        x = pos.x - 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y + 1
         return result
 
-    def possible_move_up_right(self, pos):
-        # this method calculates possible move to up right side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_down_right(self, pos):
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
-        while (y < self.MAXSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y + 1)
+        x = pos.x + 1
+        y = pos.y + 1
+        while (y < self.MAXSIZE) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y + 1
         return result
 
-    def possible_move_down_left(self, pos):
-        # this method calculates possible move to down left side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_up_left(self, pos):
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
-        while (y > self.MINSIZE - 1) and (x > self.MINSIZE + 1):
-            pos_temp = Position(x - 1, y - 1)
+        x = pos.x - 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x > self.MINSIZE - 1):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x - 1
             y = y - 1
         return result
 
-    def possible_move_down_right(self, pos):
-        # this method calculates possible move to down right side from bishop
-        # input : pos [Position]
-        # output: result [list of Position]
+    def possible_move_down_left(self, pos):
         result = []
-        x = pos.get_x()
-        y = pos.get_y()
-        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE - 1):
-            pos_temp = Position(x + 1, y - 1)
+        x = pos.x + 1
+        y = pos.y - 1
+        while (y > self.MINSIZE - 1) and (x < self.MAXSIZE):
+            pos_temp = Position(x, y)
             result.append(pos_temp)
             x = x + 1
             y = y - 1
@@ -90,7 +82,7 @@ class Bishop:
         # output: result [list of Position]
 
         result = []
-        pos = position if position is not None else self.pos
+        pos = position if position is not None else self.position
 
         result.append(self.possible_move_up_left(pos))
         result.append(self.possible_move_up_right(pos))
@@ -103,7 +95,10 @@ class Bishop:
         # this method prints Bishop symbol 'B'
         # input : None
         # output: 'B'
-        print('B', end='')
+        if(self.__color) :
+            print('B ', end='')
+        else :
+            print('b ', end='')
 
 # bishop = Bishop()
 # pos = Position(4,4)
