@@ -144,8 +144,8 @@ if __name__ == '__main__':
 
     # population = genetic_algorithm(population, 0.9)
 
-    while (len(max_scores) < 10) or not convergent(max_scores, 0.1):
-    # while (len(max_scores) < 10) or 0 not in max_scores:
+    # while (len(max_scores) < 10) or not convergent(max_scores, 0.1):
+    while (len(max_scores) < 10) or 0 not in max_scores:
         population, best_board = genetic_algorithm(population, 0.8)
         if len(max_scores) >= 10:
             max_scores.pop(0)
@@ -153,6 +153,8 @@ if __name__ == '__main__':
         print('max_scores:{}'.format(max_scores))
         print('====================')
 
+    best_board.reset_board_matrix()
+    best_board.move_all_piece()
     print(best_board)
     rooks = best_board.white_pieces
     print(li)
