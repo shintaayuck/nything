@@ -117,9 +117,9 @@ if __name__ == '__main__':
     # input min value, initial population, mutation probability
     li = []
     max_scores = []
-    for i in range (0,8):
-        rook = Rook()
-        li.append(rook)
+    for i in range (0,4):
+        piece = Queen()
+        li.append(piece)
 
     population = initialize_population(li, 10)
     print(type(population[0]))
