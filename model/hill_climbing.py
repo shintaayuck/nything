@@ -65,21 +65,21 @@ def climb_hill(board) :
     print('Number of iteration :', n)
     return board
 
-# def main() :
-#     init_position = Position(0, 0)
-#     piece_1 =Bishop(init_position, True)
-#     piece_2 = Bishop(init_position, True)
-#     # piece_6 = Rook(init_position, True)
-#     # piece_7 = Bishop(init_position, True)
-#     # piece_8 = Knight(init_position, True)
-#     white_pieces = [piece_1, piece_2]
-#     # black_pieces = [piece_3, piece_4, piece_5]
-#     # , piece_3,piece_4]
-#     # ,piece_5,piece_6,piece_7,piece_8]
-#     black_pieces = copy.deepcopy(white_pieces)
-#     for piece in black_pieces :
-#         piece.color = False
-#     board = Board(8, white_pieces, black_pieces)
-#     climb_hill(board)
+def main() :
+    init_position = Position(0, 0)
+    piece_1 =Bishop(init_position, True)
+    piece_2 = Bishop(init_position, True)
+    # piece_6 = Rook(init_position, True)
+    # piece_7 = Bishop(init_position, True)
+    # piece_8 = Knight(init_position, True)
+    white_pieces = [piece_1, piece_2]
+    # black_pieces = [piece_3, piece_4, piece_5]
+    # , piece_3,piece_4]
+    # ,piece_5,piece_6,piece_7,piece_8]
+    black_pieces = copy.deepcopy(white_pieces)
+    for piece in black_pieces :
+        piece.color = False
+    board = Board(8, white_pieces, black_pieces)
+    climb_hill(board)
 
 # main()
