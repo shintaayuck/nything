@@ -14,10 +14,10 @@ def simulated_annealing(board,schedule,is_one_color):
     temperature = 4000
     current_board = copy.deepcopy(board)
 
-    current_board.draw()
-    print(eval(current_board))
-    print("Number of Ally Conflict : ",current_board.ally_conflict)
-    print("Number of Enemy Conflict : ",current_board.enemy_conflict)
+    # current_board.draw()
+    # print(eval(current_board))
+    # print("Number of Ally Conflict : ",current_board.ally_conflict)
+    # print("Number of Enemy Conflict : ",current_board.enemy_conflict)
 
     for t in range (0, 500):
         second_board = copy.deepcopy(board)
@@ -43,7 +43,7 @@ def simulated_annealing(board,schedule,is_one_color):
             break
     
     print()
-    current_board.draw()
+    # current_board.draw()
     print("Number of Ally Conflict : ",current_board.ally_conflict)
     print("Number of Enemy Conflict : ",current_board.enemy_conflict)
     print("Number of step : ",t )

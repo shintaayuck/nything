@@ -98,7 +98,7 @@ def fitness(board):
     board.count_all_conflict()
     return (board.enemy_conflict - board.ally_conflict)
 
-if __name__ == '__main__':
+def main():
     white = []
     white.append(Queen())
     white.append(Rook())
@@ -121,3 +121,6 @@ if __name__ == '__main__':
     result.draw()
 
     print(fitness(result))
+
+if __name__ == '__main__':
+    main()
