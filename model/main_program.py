@@ -69,7 +69,7 @@ def pickAlgorithm(white_pieces, black_pieces):
         # schedule = float(input("Enter cooling schedule (e.g 0.99): "))
         result = simulated_annealing(board, 0.999, False)
     elif (algo == 3):
-        population = initialize_population(white_pieces, black_pieces, 30)
+        population = initialize_population(white_pieces, black_pieces, 20)
         result = genetic_algorithm(population)
         result.count_all_conflict()
         print("Ally conflict: ", result.ally_conflict)
@@ -100,8 +100,10 @@ if __name__ == '__main__' :
     # board = Board(8, white_pieces, black_pieces)
     result = pickAlgorithm(white_pieces, black_pieces)
     result.draw()
+    print(result.ally_conflict, " ", result.enemy_conflict)
     again = input("Again? Answer with Y / N: ")
     while (again.lower() != 'n'):
         result = pickAlgorithm(white_pieces, black_pieces)
         result.draw()
+        print(result.ally_conflict," ",result.enemy_conflict)
         again = input("Again? Answer with Y / N: ")
