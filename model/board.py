@@ -137,7 +137,7 @@ class Board:
         result = [0, 0]
         for moves in possible_moves:
             if(type(moves) == type(Position())):
-                if(self.__matrix[moves.x][moves.y] != None):
+                if(self.__matrix[moves.x][moves.y] is None):
                     if(self.__matrix[moves.x][moves.y].color == color):
                         result[0] += 1
                     else:
@@ -145,7 +145,7 @@ class Board:
                     break
             else:
                 for move in moves:
-                    if(self.__matrix[move.x][move.y] != None):
+                    if(self.__matrix[move.x][move.y] is None):
                         if(self.__matrix[move.x][move.y].color == color):
                             result[0] += 1
                         else:
