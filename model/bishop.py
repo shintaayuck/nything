@@ -95,7 +95,7 @@ class Bishop:
         # this method prints Bishop symbol 'B'
         # input : None
         # output: 'B'
-        if(self.__color) :
+        if(self.__color):
             print('B ', end='')
-        else :
+        else:
             print('b ', end='')
