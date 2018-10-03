@@ -14,9 +14,10 @@ def genetic_algorithm(population):
 
     # sort population from the highest fitness
     sorted(population, reverse = True)
+    max_population = copy.deepcopy(population[0])
 
     # check for 100 times
-    for iterate in range(100) :
+    for iterate in range(10) :
         new_population = []
 
         for i in range(len(population)//2) :
@@ -28,8 +29,8 @@ def genetic_algorithm(population):
             pieces1 , pieces2 = crossover(pieces1, pieces2)
 
             # mutation
-            # pieces1 = mutation(pieces1)
-            # pieces2 = mutation(pieces2)
+            pieces1 = mutation(pieces1)
+            pieces2 = mutation(pieces2)
 
             board1 = Board()
             update_board(board1, pieces1)
@@ -39,8 +40,10 @@ def genetic_algorithm(population):
             new_population.append((fitness(board2),board2))
         population = copy.deepcopy(new_population)
         sorted(population,reverse = True)
+        if population[0][0] >= max_population[0] :
+            max_population = copy.deepcopy(population[0])
 
-    return population[0][1]
+    return max_population[1]
 
 # randomize population that consists of n boards
 def initialize_population(white_pieces, black_pieces, n_boards) :
@@ -74,10 +77,25 @@ def crossover(board1_pieces, board2_pieces) : #list of pieces
 # mutate a piece's position
 def mutation(board_pieces) :
 
-    board_pieces[random.randint(0,len(board_pieces)-1)].position.x = random.randint(0,7)
-    board_pieces[random.randint(0,len(board_pieces)-1)].position.y = random.randint(0,7)
+    element_number = random.randint(0,len(board_pieces)-1)
+    current_piece = board_pieces[element_number]
+    current_piece.position.x = random.randint(0,7)
+    current_piece.position.y = random.randint(0,7)
+
+    # masi infinite loop
+    while is_exist(current_piece, board_pieces) :
+        # print(current_piece.position.x, " ", current_piece.position.y)
+        current_piece.position.x = random.randint(0,7)
+        current_piece.position.y = random.randint(0,7)
 
     return board_pieces
+
+def is_exist(piece, pieces) :
+    for current_piece in pieces :
+        if (current_piece != piece) :
+            if (piece.position.x == current_piece.position.x) and (piece.position.y == current_piece.position.y) :
+                return True
+    return False
 
 def update_board(board, pieces) :
     board.white_pieces = []
@@ -99,17 +117,12 @@ def fitness(board):
     return (board.enemy_conflict - board.ally_conflict)
 
 if __name__ == '__main__':
-    white = []
-    white.append(Queen())
-    white.append(Rook())
-    white.append(Bishop())
-    white.append(Knight())
 
+    white = []
     black = []
-    black.append(Queen())
-    black.append(Rook())
-    black.append(Bishop())
-    black.append(Knight())
+    for i in range(10) :
+        white.append(Queen())
+        black.append(Queen())
     for b in black :
         b.color = False
 
