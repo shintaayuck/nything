@@ -128,15 +128,8 @@ class Queen:
         list.append(self.possible_move_up_left(pos))
         return list
 
-    def draw(self) :
+    def draw(self):
         if (self.__color):
-            print("Q ",end = '')
+            print("Q ", end='')
         else:
-            print("q ",end = '')
-
-# p = Position(3,4)
-# q = Queen(p, True)
-# lists = q.show_possible_moves()
-# for ls in lists:
-#     for l in ls :
-#         print(l.x, l.y)
+            print("q ", end='')
