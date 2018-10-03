@@ -57,12 +57,13 @@ def climb_hill(board) :
         else :
             board.move_piece(optimal_piece, optimal_goal)
         n += 1
-    board.draw()
+    # board.draw()
     print('Ally conflict :', board.ally_conflict)
     print('Enemy conflict :', board.enemy_conflict)
     print('Score :', delta(board.ally_conflict, board.enemy_conflict))
     print('')
     print('Number of iteration :', n)
+    return board
 
 def main() :
     init_position = Position(0, 0)
@@ -81,4 +82,4 @@ def main() :
     board = Board(8, white_pieces, black_pieces)
     climb_hill(board)
 
-main()
+# main()
