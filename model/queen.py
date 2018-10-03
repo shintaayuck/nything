@@ -128,8 +128,8 @@ class Queen:
         list.append(self.possible_move_up_left(pos))
         return list
 
-    def draw(self):
+    def draw(self) :
         if (self.__color):
-            print("Q ", end='')
+            print("Q ",end = '')
         else:
-            print("q ", end='')
+            print("q ",end = '')
